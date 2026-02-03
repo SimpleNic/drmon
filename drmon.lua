@@ -188,9 +188,9 @@ function update()
 
     if ri.status == "running" or ri.status == "charged" then
       statusColor = colors.green
-    elseif ri.status == "offline" then
+    elseif ri.status == "cold" then
       statusColor = colors.gray
-    elseif ri.status == "charging" then
+    elseif ri.status == "warming_up" then
       statusColor = colors.orange
     end
 		
