@@ -34,8 +34,8 @@ local emergencyTemp = false
 
 monitor_peripheral = f.periphSearch("monitor")
 monitor = window.create(monitor_peripheral, 1, 1, monitor_peripheral.getSize()) -- create a window on the monitor
-inputfluxgate = f.periphSearch("flow_gate")
 fluxgate = peripheral.wrap(fluxgateSide)
+inputfluxgate = f.periphSearch("flow_gate")
 reactor = f.periphSearch("draconic_reactor")
 
 if monitor == null then
