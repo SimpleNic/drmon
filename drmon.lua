@@ -259,7 +259,7 @@ function update()
     
     -- are we charging? open the floodgates
     if ri.status == "charging" then
-      inputfluxgate.setSignalLowFlow(900000)
+      inputfluxgate.setSignalLowFlow(10000000)
       emergencyCharge = false
     end
 
