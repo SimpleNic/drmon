@@ -1,6 +1,5 @@
 -- modifiable variables
-local reactorSide = "back"
-local fluxgateSide = "right"
+local fluxgateSide = "back"
 
 local targetStrength = 50
 local maxTemperature = 8000
@@ -33,10 +32,11 @@ local action = "None since reboot"
 local emergencyCharge = false
 local emergencyTemp = false
 
-monitor = f.periphSearch("monitor")
+monitor_peripheral = f.periphSearch("monitor")
+monitor = window.create(monitor_peripheral, 1, 1, monitor_peripheral.getSize()) -- create a window on the monitor
 inputfluxgate = f.periphSearch("flow_gate")
 fluxgate = peripheral.wrap(fluxgateSide)
-reactor = peripheral.wrap(reactorSide)
+reactor = f.periphSearch("draconic_reactor")
 
 if monitor == null then
 	error("No valid monitor was found")
@@ -164,6 +164,7 @@ end
 function update()
   while true do 
 
+    monitor.setVisible(false) -- disable updating the screen.
     f.clear(mon)
 
     ri = reactor.getReactorInfo()
@@ -175,7 +176,7 @@ function update()
     end
 
     for k, v in pairs (ri) do
-      print(k.. ": ".. tostring(v))
+      print(k.. ": "..tostring(v))			
     end
     print("Output Gate: ", fluxgate.getSignalLowFlow())
     print("Input Gate: ", inputfluxgate.getSignalLowFlow())
@@ -192,7 +193,7 @@ function update()
     elseif ri.status == "charging" then
       statusColor = colors.orange
     end
-
+		
     f.draw_text_lr(mon, 2, 2, 1, "Reactor Status", string.upper(ri.status), colors.white, statusColor, colors.black)
 
     f.draw_text_lr(mon, 2, 4, 1, "Generation", f.format_int(ri.generationRate) .. " rf/t", colors.white, colors.lime, colors.black)
@@ -309,9 +310,11 @@ function update()
       emergencyTemp = true
     end
 
-    sleep(0.1)
+    monitor.setVisible(true) -- draw the screen.
+
+    sleep(0)
   end
 end
 
-parallel.waitForAny(buttons, update)
 
+parallel.waitForAny(buttons, update)
