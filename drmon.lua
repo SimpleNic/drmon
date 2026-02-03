@@ -22,7 +22,6 @@ local mon, monitor, monX, monY
 -- peripherals
 local reactor
 local fluxgate
-local fluxgateName
 local inputfluxgate
 
 -- reactor information
@@ -36,12 +35,7 @@ local emergencyTemp = false
 monitor_peripheral = f.periphSearch("monitor")
 monitor = window.create(monitor_peripheral, 1, 1, monitor_peripheral.getSize()) -- create a window on the monitor
 fluxgate = peripheral.wrap(fluxgateSide)
-fluxgateName = peripheral.getName(fluxgate)
-inputfluxgate = ({
-  peripheral.find("flow_gate", function(_, name)
-    return name ~= fluxgateName
-  end)
-})[1]
+inputfluxgate = f.periphSearch("flow_gate")
 reactor = f.periphSearch("draconic_reactor")
 
 if monitor == null then
