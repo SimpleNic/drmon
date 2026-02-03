@@ -36,10 +36,10 @@ local emergencyTemp = false
 monitor_peripheral = f.periphSearch("monitor")
 monitor = window.create(monitor_peripheral, 1, 1, monitor_peripheral.getSize()) -- create a window on the monitor
 fluxgate = peripheral.wrap(fluxgateSide)
-local fluxgateName = peripheral.getName(fluxgate)
+fluxgateName = peripheral.getName(fluxgate)
 inputfluxgate = ({
   peripheral.find("flow_gate", function(_, name)
-    return name ~= mainName
+    return name ~= fluxgateName
   end)
 })[1]
 reactor = f.periphSearch("draconic_reactor")
@@ -318,7 +318,7 @@ function update()
 
     monitor.setVisible(true) -- draw the screen.
 
-    sleep(0)
+    sleep(0.1)
   end
 end
 
